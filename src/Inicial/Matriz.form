@@ -24,9 +24,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -34,8 +33,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,10 +47,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="correo" max="32767" attributes="0"/>
+                      <Component id="correo" pref="159" max="32767" attributes="0"/>
                       <Component id="elimina" max="32767" attributes="0"/>
                       <Component id="letraa" max="32767" attributes="0"/>
-                      <Component id="dominio" pref="159" max="32767" attributes="0"/>
+                      <Component id="dominio" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -60,10 +59,10 @@
                       <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
                       <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="216" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
               </Group>
@@ -93,7 +92,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -101,22 +100,22 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="correo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="correo"/>
+            <Property name="text" type="java.lang.String" value="correo@saa.com"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="elimina">
           <Properties>
-            <Property name="text" type="java.lang.String" value="correo"/>
+            <Property name="text" type="java.lang.String" value="correo@saa.com"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="letraa">
           <Properties>
-            <Property name="text" type="java.lang.String" value="letra"/>
+            <Property name="text" type="java.lang.String" value="c"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dominio">
           <Properties>
-            <Property name="text" type="java.lang.String" value="dominio"/>
+            <Property name="text" type="java.lang.String" value="@saa.com"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
@@ -153,7 +152,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton5"/>
+            <Property name="text" type="java.lang.String" value="Print"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>

@@ -1,0 +1,3 @@
+digraph G
+{inicio;saacom;inicio -> saacom;saacom -> inicio;a;inicio -> a;a -> inicio;b;a -> b;b -> a;c;b -> c;c -> b;f;c -> f;f -> c;h;f -> h;h -> f;a -> aaa;aaa -> a;b -> bbb;bbb -> b;c -> ccc;ccc -> c;f -> fasda;fasda -> f;h -> hhhh;hhhh -> h;saacom -> aaa;aaa -> saacom;aaa -> bbb;bbb -> aaa;bbb -> ccc;ccc -> bbb;ccc -> fasda;fasda -> ccc;fasda -> hhhh;hhhh -> fasda;
+}

@@ -20,73 +20,79 @@ import java.util.logging.Level;
  */
 public class Prueba {
 
-    
-
     public static OkHttpClient webClient = new OkHttpClient();
-    
+
     public String Insertar(String correo) {
-        String [] parametros = correo.split("@");
+        String[] parametros = correo.split("@");
         String letra = parametros[0];
         char etra = letra.charAt(0);
         letra = etra + "";
         RequestBody formBody = new FormEncodingBuilder()
                 .add("letra", letra)
-//                .add("dominio", parametros[1])
-//                .add("nombre",parametros[0])
+                .add("dominio", parametros[1])
+                .add("nombre", parametros[0])
                 .build();
-        String r = getString("insertar", formBody); 
+        String r = getString("insertM", formBody);
         System.out.println(r + "---");
-        String r1 = getString("e", formBody); 
-        System.out.println(r1 + "---");
         return r;
     }
-    
+
     public String Eliminar(String correo) {
+        String[] parametros = correo.split("@");
+        String letra = parametros[0];
+        char etra = letra.charAt(0);
+        letra = etra + "";
         RequestBody formBody = new FormEncodingBuilder()
-                .add("dato", correo)
-                .add("dato2", "4")
+                .add("letra", letra)
+                .add("dominio", parametros[1])
+                .add("nombre", parametros[0])
                 .build();
-        String r = getString("eliminar", formBody); 
+        String r = getString("eliminarM", formBody);
+        System.out.println(r + "---");
         return r;
     }
-    
-    public String prueba(){
+
+    public String imprimirFila() {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("p", "4")
+                .build();
+        String r = getString("printpila", formBody);
+        return r;
+    }
+
+    public String prueba() {
         String nombre = "Marco";
         RequestBody formBody = new FormEncodingBuilder()
                 .add("dato", nombre)
                 .add("dato2", "4")
                 .build();
-        String r = getString("metodoWeb", formBody); 
+        String r = getString("metodoWeb", formBody);
         return r;
     }
-            
-    
-    public void BuscarLetra(String letra) {
-        
+
+    String  BuscarLetra(String letra) {
+
         char etra = letra.charAt(0);
         letra = etra + "";
         RequestBody formBody = new FormEncodingBuilder()
                 .add("letra", letra)
                 .build();
-        String r = getString("BuscarLetra", formBody); 
+        String r = getString("buscarl", formBody);
         System.out.println(r + "---");
-        String r1 = getString("e", formBody); 
-        System.out.println(r1 + "---");
+        return r;
     }
-    
-    public void BuscarDominio(String dominio) {
-      
+
+    String BuscarDominio(String dominio) {
+
         RequestBody formBody = new FormEncodingBuilder()
                 .add("dominio", dominio)
-
                 .build();
-        String r = getString("BuscarDominio", formBody); 
+        String r = getString("BuscarDominio", formBody);
         System.out.println(r + "---");
-        String r1 = getString("e", formBody); 
-        System.out.println(r1 + "---");
+        return r;
     }
- 
-     public static String getString(String metodo, RequestBody formBody) {
+
+    public static String getString(String metodo, RequestBody formBody) {
 
         try {
             URL url = new URL("http://0.0.0.0:5000/" + metodo);
@@ -101,5 +107,96 @@ public class Prueba {
         }
         return null;
     }
-    
+
+    void Push(String text) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", text)
+                .build();
+        String r = getString("push", formBody);
+        System.out.println(r + "---");
+    }
+
+    void Pop() {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", "n")
+                .build();
+        String r = getString("pop", formBody);
+        System.out.println(r + "---");
+
+    }
+
+    void queue(String text) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", text)
+                .build();
+        String r = getString("queue", formBody);
+        System.out.println(r + "---");
+    }
+
+    void Dequeue() {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", "n")
+                .build();
+        String r = getString("dequeue", formBody);
+        System.out.println(r + "---");
+    }
+
+    void inicializar() {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", "nnono")
+                .build();
+        String r = getString("inicializar", formBody);
+        System.out.println(r + "---");
+    }
+
+    String imprimircola() {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("p", "4")
+                .build();
+        String r = getString("printcola", formBody);
+        return r;
+    }
+
+    String agregarLis(String text) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", text)
+                .build();
+        String r = getString("addlista", formBody);
+        return r;
+    }
+
+    String elimlist(String text) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("num", text)
+                .build();
+        String r = getString("delelista", formBody);
+        return r;
+    }
+
+    String buscarList(String text) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", text)
+                .build();
+        String r = getString("buscarLi", formBody);
+        return r;
+    }
+
+    String imprimirLista() {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("p", "4")
+                .build();
+        String r = getString("printlista", formBody);
+        return r;
+    }
+
+    String printMatriz() {
+         RequestBody formBody = new FormEncodingBuilder()
+                .add("p", "4")
+                .build();
+        String r = getString("printM", formBody);
+        r = r.replace(".", "");
+//       System.out.println(r);
+        return r;
+    }
+
 }

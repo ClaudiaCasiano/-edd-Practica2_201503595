@@ -5,6 +5,9 @@ class Nodom:
 		self.nombre = nombre
 		self.down = None
 		self.next = None
+		self.up = None
+		self.left = None
+		self.atras = None
 
 
 class Matriz(object):
@@ -22,38 +25,38 @@ class Matriz(object):
 		Nuevo = Nodom(letra, dominio, nombre)
 		existeletra= False
 		existedom = False
-##----------------PARA INSERTAR UNA NUEVA FILA ---------------------
+##------------ ----PARA INSERTAR UNA NUEVA FILA ---------------------
 		##para incertar el primer nodo de la fila
 		if self.prim.nombre == 'vacio':
+			NLetra = Nodom(letra,None,nombre[0])
 			self.prim.nombre = 'vaciodom'
-			self.prim.down = Nodom(letra,None,nombre[0])
+			self.prim.down = NLetra
+			NLetra.up = self.prim
 			auxf = auxf.down
 			print 'Insertar nueva fila se creo el primer nodo con ', auxf.letra, nombre
 		##si ya existe al menos un nodo de la fila
 		else:
-			print 'el abajo no esta vacio', auxf.down.letra
 			while auxf.down!=None:
 				if letra>auxf.down.letra:
 					auxf = auxf.down
-					print 'letra',letra,' es mayor que auxfletra', auxf.letra
-				##si la letra ya existe
 				elif letra == auxf.down.letra:
 					existeletra=True
 					auxf = auxf.down
-					print 'Insertar nueva fila esta letra YA EXISTE',auxf.letra, nombre
+					print 'LETRA INCIAL YA EXISTE',auxf.letra, nombre
 					break
-				else: #va a salir hasta que letra sea menor que aux.down.letra
-				##si la letra no existe y ya es menor que el siguiente
+				else: 
 					break
-			#si no existe la letra	
 			if existeletra==False:
 			 	NuevaLetra = Nodom(letra,None,nombre[0])
-				NuevaLetra.down = auxf.down
+			 	if auxf.down != None:
+			 		NuevaLetra.down = auxf.down
+					NuevaLetra.down.up = NuevaLetra
 				auxf.down = NuevaLetra
+				NuevaLetra.up = auxf
 				auxf = auxf.down
-				print 'se ingreso la letra', letra, nombre
+				print 'SE INGRESO NUEVA LETRA', letra, nombre
 			else:
-				print 'insertar nueva fila: No incerto nada porque ya existe'
+				print '-'
 
 
 
@@ -61,22 +64,17 @@ class Matriz(object):
 		##si no existe nada despues del primero	
 		if self.prim.nombre == 'vaciodom':
 			self.prim.nombre ='alv'
-			auxc.next = Nodom(None,dominio,None)
+			NDominio = Nodom(None,dominio,None)
+			auxc.next = NDominio
+			NDominio.left = auxc
 			auxc = auxc.next
-			print 'Insertar nueva fila se creo el primer nodo con ', auxf.letra, nombre
-			#prim.letra = 'lleno'
-			#auxc.next = Nodom(None,dominio,None)
-			#auxc = auxc.next
-	    #si ya existe un dominio
 		else:
 			letdom = ord(dominio[0])
-			print 'insertar nueva columna la letra del dominio es',letdom,dominio
-			inauxc = ord('n')# es el valor ancii 
+			inauxc = ord('n') 
 			while auxc.next != None:
 				temp = auxc.next.dominio[0]
-				print 'insertar columna, la letra del temp es',temp
 				inauxc = ord(temp)
-				print 'insert columna, el codigo ascii es',inauxc,auxc.next.dominio ##toma la primera letra del dominio del nodo actual.next
+				#print 'insert columna, el codigo ascii es',inauxc,auxc.next.dominio ##toma la primera letra del dominio del nodo actual.next
 				if letdom == inauxc :
 					print 'EMPIEZA CON LA MISMA LETRA'
 					if auxc.next.dominio == dominio:
@@ -85,7 +83,7 @@ class Matriz(object):
 						existedom = True
 						break
 					else:
-						auxc = verificar(auxc,dominio)
+						auxc = self.verificar(auxc,dominio)
 						print 'el codigo de letra',letdom,'es igual al aux',inauxc
 						break
 				elif letdom > inauxc:
@@ -102,16 +100,12 @@ class Matriz(object):
 				Nuevodom = Nodom(None,dominio,None)
 				if auxc.next!= None:
 					Nuevodom.next = auxc.next
+					Nuevodom.next.left = Nuevodom
 				auxc.next = Nuevodom
 				auxc = auxc.next
 			else:
 				print 'nojoda'
 				print auxc.dominio
-
-
-
-
-
 #=================PARA METER EL NUEVO NODO ===================
 		insetarAtras = False
 		print auxc.letra, auxc.nombre
@@ -128,22 +122,20 @@ class Matriz(object):
 				print 'LO INSERTARA ANTES DEL ACTUAL.DOWN'
 				break
 		if insetarAtras != True: #si no hay que incertar atras, se incerta el nodo al abajo del auxcdown
-			print 'insertar atras no es true'
-
 			if auxc.down!= None:
 				Nuevo.down = auxc.down
-				print auxc.down.nombre,'este es el nombre que va abajo'
-				auxc.down = Nuevo
-			else:
-				auxc.down = Nuevo
+				Nuevo.down.up = Nuevo
+			auxc.down = Nuevo
+			Nuevo.up = auxc
 		else:
 			print 'insertar atras es true D:'
 			auxc = auxc.down
 			auxc.atras = Nuevo
 
 
+
 			#para conectarlo con el siguiente
-		print auxf.letra ,'esta es el indice de la letra a agregar'
+		#print auxf.letra ,'esta es el indice de la letra a agregar'
 		letdom = ord(dominio[0])
 		print 'insertar nueva columna la letra del dominio es',letdom,dominio
 		inauxf = ord('n')# es el valor ancii 
@@ -158,7 +150,7 @@ class Matriz(object):
 					auxf = auxf.next
 					break
 				else:
-					auxf = verificar(auxf,dominio)
+					auxf = self.verificar(auxf,dominio)
 					print 'el codigo de letra',letdom,'es igual al aux',inauxf
 					break
 			elif letdom > inauxf:
@@ -169,25 +161,28 @@ class Matriz(object):
 
 		if insetarAtras != True:
 			Nuevo.next = auxf.next
+			Nuevo.left = auxf
+			if Nuevo.next != None:
+				Nuevo.next.left = Nuevo
 			auxf.next = Nuevo
 		else:
 			print 'ya esta ligado a un siguiente'
 			#auxc.down = Nuevo
 
 
-		print 'abajo de',auxc.nombre,auxc.dominio,'esta',auxc.down.nombre,'@',auxc.down.dominio,'derecha de ',auxf.letra,auxf.nombre,auxf.dominio,'esta',auxf.next.nombre,'@',auxf.next.dominio
-		if Nuevo.next != None and Nuevo.down != None:
-			print 'abajo de', Nuevo.nombre, Nuevo.dominio,'esta',Nuevo.down.nombre,'@',Nuevo.down.dominio, 'a  la dereca de', Nuevo.nombre,Nuevo.dominio,'esta',Nuevo.next.nombre, '@',Nuevo.next.dominio
-		elif Nuevo.next != None:
-			print 'abajo de', Nuevo.nombre, Nuevo.dominio,'No hay nada a  la derecha de', Nuevo.nombre,Nuevo.dominio,'esta',Nuevo.next.nombre, '@',Nuevo.next.dominio
-		elif Nuevo.down != None:
-			print 'abajo de', Nuevo.nombre, Nuevo.dominio,'esta',Nuevo.down.nombre,'@',Nuevo.down.dominio, 'a  la dereca de', Nuevo.nombre,Nuevo.dominio,'NO HAY NADA'
-		else:
-			print 'No hay nada debajo ni a su derecha'
+		#print 'abajo de',auxc.nombre,auxc.dominio,'esta',auxc.down.nombre,'@',auxc.down.dominio,'derecha de ',auxf.letra,auxf.nombre,auxf.dominio,'esta',auxf.next.nombre,'@',auxf.next.dominio
+		#if Nuevo.next != None and Nuevo.down != None:
+		#	print 'abajo de', Nuevo.nombre, Nuevo.dominio,'esta',Nuevo.down.nombre,'@',Nuevo.down.dominio, 'a  la dereca de', Nuevo.nombre,Nuevo.dominio,'esta',Nuevo.next.nombre, '@',Nuevo.next.dominio
+		#elif Nuevo.next != None:
+		#	print 'abajo de', Nuevo.nombre, Nuevo.dominio,'No hay nada a  la derecha de', Nuevo.nombre,Nuevo.dominio,'esta',Nuevo.next.nombre, '@',Nuevo.next.dominio
+		#elif Nuevo.down != None:
+		#	print 'abajo de', Nuevo.nombre, Nuevo.dominio,'esta',Nuevo.down.nombre,'@',Nuevo.down.dominio, 'a  la dereca de', Nuevo.nombre,Nuevo.dominio,'NO HAY NADA'
+		#else:
+		#	print 'No hay nada debajo ni a su derecha'
 
+		return "se inserto " + str(Nuevo.nombre) + "@" + str(Nuevo.dominio)
 
-
-	def verificar(self,auxc,dominio):#manda el nodo y la palabra dominio
+	def verificar(self,auxc ,dominio):#manda el nodo y la palabra dominio
 		i = 1
 		print 'entro a verificar'
 
@@ -217,45 +212,148 @@ class Matriz(object):
 
 
 	def imprimir(self):
-		grafico =self.prim.dominio+';'
+		print ''
+		print '------------------'
+		print ' vamo a imprimir'
+		grafico = str(self.prim.dominio) + ";"
 		ac = self.prim
-		af = ac
+		af = self.prim
 
 		while(af.next!= None):
-			grafico = grafico + af.next.dominio + ';'
+			grafico = grafico + af.next.dominio + ";"
 			grafico = grafico + af.dominio + " -> "+ af.next.dominio+';'
+			grafico = grafico + af.next.dominio + " -> "+ af.dominio+';'
 			af = af.next
 
+		print 'por la puchis'
+
 		af = self.prim.down
-		grafico =grafico + self.prim.dominio +' -> '+ af.nombre + ';'
+		grafico = grafico + af.nombre+ ";"
+		grafico =grafico + self.prim.dominio +" -> "+ af.nombre + ';'
+		grafico =grafico + af.nombre +" -> "+ self.prim.dominio + ';'
+		
+
 
 		while af.down != None:
-			grafico = grafico + af.down.nombre + ';'
-			grafico = grafico + af.nombre + ' -> '+ af.down.nombre+';'
+			grafico = grafico + af.down.nombre + ";"
+			grafico = grafico + af.nombre + " -> "+ af.down.nombre+';'
+			grafico = grafico + af.down.nombre + " -> "+ af.nombre+';'
 			af = af.down
 
 		af = self.prim
-		print af.nombre
-		print af.down.nombre
-		ac = self.prim.down
 		while af.down !=None:
+			ac = af.down
 			af = af.down
+			grafico = grafico + ac.nombre + " -> "+ ac.next.nombre+ ";"
+			grafico = grafico + ac.next.nombre + " -> "+ ac.nombre+ ";"
+			ac = ac.next
 			while ac.next!= None:
+				grafico = grafico + ac.next.nombre+";"
 				grafico = grafico + ac.nombre+' -> ' + ac.next.nombre + ';'
+				grafico = grafico + ac.next.nombre+' -> ' + ac.nombre + ';'
 				ac = ac.next
+
+		af = self.prim
+		while af.next !=None:
+			ac = af.next
+			af = af.next
+			grafico = grafico + ac.dominio + " -> "+ ac.down.nombre+ ";"
+			grafico = grafico + ac.down.nombre + " -> "+ ac.dominio+ ";"
+			ac = ac.down
+			while ac.down!= None:
+				grafico = grafico + ac.nombre+' -> ' + ac.down.nombre + ';'
+				grafico = grafico + ac.down.nombre+' -> ' + ac.nombre + ';'
+
+				if ac.atras != None:
+					grafico = grafico + ac.nombre+' -> ' + ac.atras.nombre + ';'
+					grafico = grafico + ac.atras.nombre+' -> ' + ac.nombre + ';'
+
+				ac = ac.down
 			
 
-		print grafico
-		return grafico
+		print grafico + "por la pushix"
+		return str(grafico)
 		#hile(af.down!=None):
 
-	def eliminar(self):
-		return 'deberia eliminar'
+	def eliminar(self,letra,dominio,nombre):
+		busqueda = self.prim.next
+		while busqueda != None:
+			if busqueda.dominio == dominio:
+				break
+			else:
+				busqueda = busqueda.next
+
+		busqueda = busqueda.down
+
+		while busqueda != None:
+			if busqueda.letra ==letra:
+				break
+			else:
+				busqueda = busqueda.down
+		if busqueda != None:
+			while busqueda != None:
+				if busqueda.nombre == nombre:
+					break
+				else:
+					nombre = nombre.left
+				pass
+
+		if busqueda!= None:
+			if busqueda.left!= None:
+				busqueda = busqueda.left
+				return "se elimino el nodo" 
+			else:
+				n = busqueda.left
+				n.next = busqueda.next
+				n.next.left = n 
+				a = busqueda.down
+				a.up = busqueda.up
+				a.up.down = a
+				return "se elimino el nodo" 
 
 
+	def letra(self,letra):
+		lista = ''
+		af = self.prim.down
+		while af != None:
+			if af.letra == letra:
+				break
+			else:
+				af= af.down
+		if af!= None:
+			af = af.next
+			while af != None:
+				lista = lista+ ' - ' + af.nombre
+				if af.atras != None:
+					while af.atras!= None:
+						lista = lista +' - ' + af.nombre
+					
+				af = af.next
 
 
-		#while(ac != None):
+		return str(lista)
+
+
+	def dominio(self, dominio):
+		lista = ''
+		ac = self.prim.next
+		while ac!= None:
+			if ac.dominio == dominio:
+				break
+			else:
+				ac = ac.next
+		if ac != None:
+			ac = ac.down 
+			while ac != None:
+				lista = lista + ' - ' + ac.nombre
+				if ac.atras != None:
+					while ac.atras!= None:
+						lista = lista +' - ' + ac.nombre
+				ac = ac.down
+		return str(lista)
+
+
+		#while(ac != None):=
 		#	print ac.letra
 		#	while(af.next!= None):
 		#		grafico = grafico + af.next.
