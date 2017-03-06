@@ -31,8 +31,8 @@ public class Prueba {
         letra = etra + "";
         RequestBody formBody = new FormEncodingBuilder()
                 .add("letra", letra)
-                .add("dominio", parametros[1])
-                .add("nombre",parametros[0])
+//                .add("dominio", parametros[1])
+//                .add("nombre",parametros[0])
                 .build();
         String r = getString("insertar", formBody); 
         System.out.println(r + "---");
